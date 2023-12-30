@@ -2,8 +2,6 @@ package com.store.store.models;
 
 import java.util.List;
 
-import org.hibernate.annotations.Cascade;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,6 +25,9 @@ public class Dish {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "Dish_Ingredient", joinColumns = @JoinColumn(name = "Dish_Id"), inverseJoinColumns = @JoinColumn(name = "Ingredient_Id"))
     private List<Ingredient> ingredients;
+
+    @ManyToMany(mappedBy = "dishes")
+    private List<Order> orders;
 
     public Dish() {
     }
@@ -58,4 +59,14 @@ public class Dish {
     public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    
 }
