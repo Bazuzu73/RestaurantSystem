@@ -12,34 +12,28 @@ import org.springframework.ui.Model;
 import com.store.store.models.Dish;
 import com.store.store.models.Ingredient;
 import com.store.store.repos.DishRepository;
+import com.store.store.services.DishService;
 
 @Controller
 public class DishController {
 
-    @Autowired
-    private DishRepository dishRepository;
+    private DishService dishService;
 
     @GetMapping("/dishes")
-    public String getListofDishes(Model model) {    
-        Iterable<Dish> dishes = dishRepository.findAll();
+    public String getListofDishes(Model model) {
+        Iterable<Dish> dishes = dishService.getAllDishes();
         model.addAttribute("dishes", dishes);
         return "dishes";
     }
 
     @GetMapping("/dish/{id}")
     public String getDish(@PathVariable(value = "id") int id, Model model) {
-        if(!dishRepository.existsById(id)) {
+        if (dishService.ifExist(id)) {
             return "redirect:/dishes";
         }
-        Optional<Dish> dishOptional = dishRepository.findById(id);
-        List<Dish> dishArray = new ArrayList<>();
-        Iterable<Ingredient> ingredients = new ArrayList<>();
-        if (dishOptional.isPresent()) {
-            dishOptional.ifPresent(dishArray :: add);
-            Dish dish = dishOptional.get();
-            ingredients = dish.getIngredients();
-        }
-        model.addAttribute("dish", dishArray);
+        List<Dish> dish = dishService.getDishById(id);
+        List<Ingredient> ingredients = dishService.getRelatedIngredients(id);
+        model.addAttribute("dish", dish);
         model.addAttribute("ingredients", ingredients);
         return "dishDetailed";
     }
