@@ -15,12 +15,15 @@
 <header th:insert="blocks/header :: header"></header>
 <main>
     <div class="container mt-5">
-        <div th:each="dish : ${dishes}" class="alert alert-info mt-2">
-            <h3 th:text="${dish.dishName}"></h3>
-            <a th:href="'/dish/' + ${dish.dishId}" class="btn btn-link">Dish details</a>
+        <div th:each="element : ${dish}">
+            <h1 th:text="${element.dishName}"></h1>
+        </div>
+        <div th:each="ingredient : ${ingredients}" class="alert alert-info mt-2">
+            <h3 th:text="${ingredient.id}"></h3>
+            <h3 th:text="${ingredient.name}"></h3>
+            <h3 th:text="${ingredient.ingredientType}"></h3>
         </div>
     </div>
-
 </main>
 </body>
 <footer th:insert="blocks/footer :: footer"></footer>
