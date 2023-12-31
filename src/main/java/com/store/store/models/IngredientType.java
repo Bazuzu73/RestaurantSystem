@@ -1,9 +1,10 @@
 package com.store.store.models;
 
 public enum IngredientType {
-    WRAP,
-    PROTEIN,
-    VEGGIES,
+
+    MEAT,
+    VEGETABLE,
+    FRUIT,
     CHEESE,
     SAUCE
 }
