@@ -1,6 +1,6 @@
 package com.store.store.services;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,36 +12,29 @@ import com.store.store.models.Ingredient;
 import com.store.store.repos.DishRepository;
 
 @Service
-public class DishService {
+public class DishService implements ServiceInterface<Dish>, RelatedInterface<Ingredient> {
 
     @Autowired
     private DishRepository dishRepository;
 
+    @Override
     public boolean ifExist(int id) {
         return dishRepository.existsById(id);
     }
 
-    public Iterable<Dish> getAllDishes() {
+    @Override
+    public Iterable<Dish> getAll() {
         return dishRepository.findAll();
     }
 
-    public List<Dish> getDishById(int id) {
-        Optional<Dish> optionalDish = dishRepository.findById(id);
-        List<Dish> dish = new ArrayList<>();
-        if (optionalDish.isPresent()) {
-            optionalDish.ifPresent(dish::add);
-        }
-        return dish;
+    @Override
+    public List<Dish> getById(int id) {
+        return dishRepository.findById(id).map(Collections::singletonList).orElse(Collections.emptyList());
     }
 
-    public List<Ingredient> getRelatedIngredients(int id) {
+    @Override
+    public List<Ingredient> getRelated(int id) {
         Optional<Dish> optionalDish = dishRepository.findById(id);
-        Dish dish;
-        List<Ingredient> ingredients = new ArrayList<>();
-        if (optionalDish.isPresent()) {
-            dish = optionalDish.get();
-            ingredients = dish.getIngredients();
-        }
-        return ingredients;
+        return optionalDish.map(Dish::getIngredients).orElse(Collections.emptyList());
     }
 }
