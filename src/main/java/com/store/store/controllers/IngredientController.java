@@ -27,7 +27,7 @@ public class IngredientController {
     }
 
     @GetMapping("/ingredient/{id}")
-    public String getMethodName(@PathVariable(value = "id") int id, Model model) {
+    public String getIngredient(@PathVariable(value = "id") int id, Model model) {
         List<Ingredient> ingredient = new ArrayList<>();
         Optional<Ingredient> ingredientOptional = ingredientRepository.findById(id);
         if (ingredientOptional.isPresent()) {
@@ -38,5 +38,4 @@ public class IngredientController {
             return "redirect:/ingredients";
         }
     }
-
 }
