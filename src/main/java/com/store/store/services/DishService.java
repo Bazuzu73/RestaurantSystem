@@ -42,4 +42,9 @@ public class DishService implements ServiceInterface<Dish>, RelatedInterface<Ing
     public void save(Dish dish) {
         dishRepository.save(dish);
     }
+
+    @Override
+    public void delete(Dish dish) {
+        dishRepository.delete(dish);
+    }
 }

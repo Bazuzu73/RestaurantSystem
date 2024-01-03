@@ -11,4 +11,6 @@ public interface ServiceInterface<T> {
     List<T> getById(int id);
 
     void save(T t);
+
+    void delete(T t);
 }
