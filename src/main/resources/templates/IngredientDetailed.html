@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Resto Menu</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+</head>
+
+<body>
+<header th:insert="blocks/header :: header"></header>
+<main>
+    <div class="col-md-7 col-lg-8">
+        <h4 class="mb-3">Add ingredient</h4>
+        <form  action="/ingredient/new" th:object="${ingredient}" method="post">
+            <div class="col-12">
+              <label for="name" class="form-label">Ingredient's name</label>
+              <input type="text" class="form-control" placeholder="New Ingredient" th:field="*{name}">
+            </div>
+
+            <div class="col-md-5">
+              <label for="Type" class="form-label">Ingredient Type</label>
+              <select class="form-select" required="" th:field="*{ingredientType}">
+                <option value="">Select ingredient type</option>
+                <option th:each="element : ${type}" th:value="${element}" th:text="${#strings.capitalize(element.name())}"></option>
+              </select>
+            </div>
+            <br>
+          <button class="btn btn-primary btn-lg" type="submit">Add new ingredient</button>
+        </form>
+      </div>
+</main>
+</body>
+<footer th:insert="blocks/footer :: footer"></footer>
+
+</html>
