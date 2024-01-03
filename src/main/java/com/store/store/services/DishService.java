@@ -37,4 +37,9 @@ public class DishService implements ServiceInterface<Dish>, RelatedInterface<Ing
         Optional<Dish> optionalDish = dishRepository.findById(id);
         return optionalDish.map(Dish::getIngredients).orElse(Collections.emptyList());
     }
+
+    @Override
+    public void save(Dish dish) {
+        dishRepository.save(dish);
+    }
 }

@@ -9,4 +9,6 @@ public interface ServiceInterface<T> {
     Iterable<T> getAll();
 
     List<T> getById(int id);
+
+    void save(T t);
 }
