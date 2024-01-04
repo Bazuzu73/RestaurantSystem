@@ -45,9 +45,18 @@ public class IngredientController {
     }
 
     @PostMapping("/ingredient/new")
-    public String postMethodName(Model model, @ModelAttribute Ingredient ingredient) {
+    public String newIngredient(Model model, @ModelAttribute Ingredient ingredient) {
         ingredientService.save(ingredient);
         return "redirect:/ingredients";
     }
+    
 
+    @PostMapping("/ingredient/{id}/delete")
+    public String deleteIngredient(@PathVariable(value = "id") int id, Model model) {
+        if (ingredientService.ifExist(id)) {
+            ingredientService.delete(id);
+        }
+        return "redirect:/ingredients";
+    }
+    
 }

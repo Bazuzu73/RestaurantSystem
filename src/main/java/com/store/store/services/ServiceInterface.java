@@ -12,5 +12,5 @@ public interface ServiceInterface<T> {
 
     void save(T t);
 
-    void delete(T t);
+    void delete(int id);
 }

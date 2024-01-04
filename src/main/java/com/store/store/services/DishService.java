@@ -44,7 +44,7 @@ public class DishService implements ServiceInterface<Dish>, RelatedInterface<Ing
     }
 
     @Override
-    public void delete(Dish dish) {
-        dishRepository.delete(dish);
+    public void delete(int id) {
+        dishRepository.delete(dishRepository.findById(id).get());
     }
 }

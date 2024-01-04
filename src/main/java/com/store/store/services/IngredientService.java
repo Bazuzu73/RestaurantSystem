@@ -42,7 +42,7 @@ public class IngredientService implements ServiceInterface<Ingredient>, Ingredie
     }
 
     @Override
-    public void delete(Ingredient ingredient) {
-        ingredientRepository.delete(ingredient);
+    public void delete(int id) {
+        ingredientRepository.delete(ingredientRepository.findById(id).get());
     }
 }
