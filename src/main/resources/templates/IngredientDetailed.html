@@ -17,12 +17,12 @@
     <div class="col-md-7 col-lg-8">
         <h4 class="mb-3">Add ingredient</h4>
         <form  action="/ingredient/new" th:object="${ingredient}" method="post">
-            <div class="col-12">
+            <div class="col-md-3">
               <label for="name" class="form-label">Ingredient's name</label>
               <input type="text" class="form-control" placeholder="New Ingredient" th:field="*{name}">
             </div>
 
-            <div class="col-md-5">
+            <div class="col-md-3">
               <label for="Type" class="form-label">Ingredient Type</label>
               <select class="form-select" required="" th:field="*{ingredientType}">
                 <option value="">Select ingredient type</option>
@@ -30,7 +30,7 @@
               </select>
             </div>
             <br>
-          <button class="btn btn-primary btn-lg" type="submit">Add new ingredient</button>
+          <button class="btn btn-primary btn-sm" type="submit">Add new ingredient</button>
         </form>
       </div>
 </main>
