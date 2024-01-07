@@ -35,12 +35,21 @@ public class IngredientController {
         }
     }
 
+    @GetMapping("/ingredient/{id}/update")
+    public String getIngredientForUpdate(@PathVariable(value = "id") int id, Model model) {
+        if (!ingredientService.ifExist(id)) {
+            return "redirect:ingredients";
+        } else {
+            model.addAttribute("empty_ingredient", ingredientService.getEmptyIngredient());
+            model.addAttribute("ingredient", ingredientService.getById(id));
+            return "ingredientUpdated";
+        }
+    }
+
     @GetMapping("/ingredient/new")
     public String saveIngredient(Model model) {
-        IngredientType type[] = ingredientService.getIngredientTypes();
-        Ingredient ingredient = new Ingredient();
-        model.addAttribute("ingredient", ingredient);
-        model.addAttribute("type", type);
+        model.addAttribute("ingredient", ingredientService.getEmptyIngredient());
+        model.addAttribute("type", ingredientService.getIngredientTypes());
         return "ingredientDetailed";
     }
 

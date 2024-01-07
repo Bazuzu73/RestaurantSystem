@@ -47,4 +47,10 @@ public class DishService implements ServiceInterface<Dish>, RelatedInterface<Ing
     public void delete(int id) {
         dishRepository.delete(dishRepository.findById(id).get());
     }
+
+    @Override
+    public Dish getEmpty() {
+        Dish dish = new Dish();
+        return dish;
+    }
 }

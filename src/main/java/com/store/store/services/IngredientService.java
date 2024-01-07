@@ -45,4 +45,10 @@ public class IngredientService implements ServiceInterface<Ingredient>, Ingredie
     public void delete(int id) {
         ingredientRepository.delete(ingredientRepository.findById(id).get());
     }
+
+    @Override
+    public Ingredient getEmpty(){
+        Ingredient ingredient = new Ingredient();
+        return ingredient;
+    }
 }

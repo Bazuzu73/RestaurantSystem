@@ -13,4 +13,6 @@ public interface ServiceInterface<T> {
     void save(T t);
 
     void delete(int id);
+
+    T getEmpty();
 }
