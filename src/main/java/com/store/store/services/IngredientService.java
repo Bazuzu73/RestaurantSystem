@@ -11,7 +11,7 @@ import com.store.store.models.IngredientType;
 import com.store.store.repos.IngredientRepository;
 
 @Service
-public class IngredientService implements ServiceInterface<Ingredient>{
+public class IngredientService implements ServiceInterface<Ingredient>, IngredientTypeInterface<IngredientType> {
 
     @Autowired
     private IngredientRepository ingredientRepository;
@@ -36,7 +36,24 @@ public class IngredientService implements ServiceInterface<Ingredient>{
         ingredientRepository.save(ingredient);
     }
 
+    @Override
     public IngredientType[] getIngredientTypes() {
         return IngredientType.values();
+    }
+
+    @Override
+    public void delete(int id) {
+        ingredientRepository.delete(ingredientRepository.findById(id).get());
+    }
+
+    @Override
+    public Ingredient getEmpty() {
+        Ingredient ingredient = new Ingredient();
+        return ingredient;
+    }
+
+    public Ingredient geIngredientObject(int id) {
+        Ingredient ingredient = ingredientRepository.findById(id).get();
+        return ingredient;
     }
 }

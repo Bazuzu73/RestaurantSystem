@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.store.store.models.Ingredient;
-import com.store.store.models.IngredientType;
 import com.store.store.services.IngredientService;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,29 +24,42 @@ public class IngredientController {
         return "ingredients";
     }
 
-    @GetMapping("/ingredient/{id}")
-    public String getIngredient(@PathVariable(value = "id") int id, Model model) {
+    @GetMapping("/ingredient/{id}/update")
+    public String getIngredientForUpdate(@PathVariable(value = "id") int id, Model model) {
         if (!ingredientService.ifExist(id)) {
             return "redirect:ingredients";
         } else {
-            model.addAttribute("ingredient", ingredientService.getById(id));
-            return "ingredientDetailed";
+            model.addAttribute("ingredient", ingredientService.geIngredientObject(id));
+            model.addAttribute("type", ingredientService.getIngredientTypes());
+            return "ingredientUpdated";
         }
     }
 
-    @GetMapping("/ingredient/new")
-    public String saveIngredient(Model model) {
-        IngredientType type[] = ingredientService.getIngredientTypes();
-        Ingredient ingredient = new Ingredient();
-        model.addAttribute("ingredient", ingredient);
-        model.addAttribute("type", type);
-        return "ingredientDetailed";
-    }
-
-    @PostMapping("/ingredient/new")
-    public String postMethodName(Model model, @ModelAttribute Ingredient ingredient) {
+    @PostMapping("/ingredient/{id}/update")
+    public String postIngredientforUpdate(Model model, @ModelAttribute Ingredient ingredient) {
         ingredientService.save(ingredient);
         return "redirect:/ingredients";
     }
 
+    @GetMapping("/ingredient/new")
+    public String saveIngredient(Model model) {
+        model.addAttribute("ingredient", ingredientService.getEmpty());
+        model.addAttribute("type", ingredientService.getIngredientTypes());
+        return "ingredientUpdated";
+    }
+
+    @PostMapping("/ingredient/new")
+    public String newIngredient(Model model, @ModelAttribute Ingredient ingredient) {
+        System.out.println(ingredient.getId());
+        ingredientService.save(ingredient);
+        return "redirect:/ingredients";
+    }
+
+    @PostMapping("/ingredient/{id}/delete")
+    public String deleteIngredient(@PathVariable(value = "id") int id, Model model) {
+        if (ingredientService.ifExist(id)) {
+            ingredientService.delete(id);
+        }
+        return "redirect:/ingredients";
+    }
 }

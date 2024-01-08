@@ -18,7 +18,7 @@ public class DishController {
     private DishService dishService;
 
     @GetMapping("/dishes")
-    public String getListofDishes(Model model) {    
+    public String getListofDishes(Model model) {
         Iterable<Dish> dishes = dishService.getAll();
         model.addAttribute("dishes", dishes);
         return "dishes";
@@ -26,7 +26,7 @@ public class DishController {
 
     @GetMapping("/dish/{id}")
     public String getDish(@PathVariable(value = "id") int id, Model model) {
-        if(!dishService.ifExist(id)) {
+        if (!dishService.ifExist(id)) {
             return "redirect:/dishes";
         }
         List<Dish> dish = dishService.getById(id);
