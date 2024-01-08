@@ -11,7 +11,6 @@ import com.store.store.models.Ingredient;
 import com.store.store.services.IngredientService;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Controller
@@ -26,23 +25,12 @@ public class IngredientController {
         return "ingredients";
     }
 
-    @GetMapping("/ingredient/{id}")
-    public String getIngredient(@PathVariable(value = "id") int id, Model model) {
-        if (!ingredientService.ifExist(id)) {
-            return "redirect:ingredients";
-        } else {
-            model.addAttribute("ingredient", ingredientService.getById(id));
-            return "ingredientDetailed";
-        }
-    }
-
     @GetMapping("/ingredient/{id}/update")
     public String getIngredientForUpdate(@PathVariable(value = "id") int id, Model model) {
         if (!ingredientService.ifExist(id)) {
             return "redirect:ingredients";
         } else {
-            Ingredient ingredient = ingredientService.geIngredientObject(id);
-            model.addAttribute("ingredient", ingredient);
+            model.addAttribute("ingredient", ingredientService.geIngredientObject(id));
             model.addAttribute("type", ingredientService.getIngredientTypes());
             return "ingredientUpdated";
         }
