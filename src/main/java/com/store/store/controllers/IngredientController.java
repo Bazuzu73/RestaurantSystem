@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.store.store.models.Ingredient;
-import com.store.store.models.IngredientType;
 import com.store.store.services.IngredientService;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +39,7 @@ public class IngredientController {
         if (!ingredientService.ifExist(id)) {
             return "redirect:ingredients";
         } else {
-            model.addAttribute("empty_ingredient", ingredientService.getEmptyIngredient());
+            model.addAttribute("empty_ingredient", ingredientService.getEmpty());
             model.addAttribute("ingredient", ingredientService.getById(id));
             return "ingredientUpdated";
         }
@@ -48,7 +47,7 @@ public class IngredientController {
 
     @GetMapping("/ingredient/new")
     public String saveIngredient(Model model) {
-        model.addAttribute("ingredient", ingredientService.getEmptyIngredient());
+        model.addAttribute("ingredient", ingredientService.getEmpty());
         model.addAttribute("type", ingredientService.getIngredientTypes());
         return "ingredientDetailed";
     }
@@ -58,7 +57,6 @@ public class IngredientController {
         ingredientService.save(ingredient);
         return "redirect:/ingredients";
     }
-    
 
     @PostMapping("/ingredient/{id}/delete")
     public String deleteIngredient(@PathVariable(value = "id") int id, Model model) {
@@ -67,5 +65,4 @@ public class IngredientController {
         }
         return "redirect:/ingredients";
     }
-    
 }
