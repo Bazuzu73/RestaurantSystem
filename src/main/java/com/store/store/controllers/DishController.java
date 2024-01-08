@@ -5,12 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.ui.Model;
 import com.store.store.models.Dish;
 import com.store.store.models.Ingredient;
 import com.store.store.services.DishService;
 import com.store.store.services.IngredientService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+
+
 
 @Controller
 public class DishController {
@@ -32,13 +38,38 @@ public class DishController {
     public String getDish(@PathVariable(value = "id") int id, Model model) {
         if (!dishService.ifExist(id)) {
             return "redirect:/dishes";
+        } else {
+        model.addAttribute("dish", dishService.getById(id).get(0));
+        model.addAttribute("ingredients", dishService.getRelated(id));
+        model.addAttribute("allIngredients", ingredientService.getAll());
+        return "dishDetailed";
         }
-        Dish dish = dishService.getById(id).get(0);
-        List<Ingredient> dishIngredients = dishService.getRelated(id);
-        Iterable<Ingredient> allIngredients = ingredientService.getAll();
-        model.addAttribute("dish", dish);
-        model.addAttribute("ingredients", dishIngredients);
-        model.addAttribute("allIngredients", allIngredients);
+    }
+
+    @PostMapping("/dish/{id}/update")
+    public String postDish(Model model, @ModelAttribute Dish dish) {
+        dishService.save(dish);
+        return "redirect:/dishes";
+    }
+
+
+    @GetMapping("/dish/new")
+    public String getNewDish(Model model) {
         return "dishDetailed";
     }
+    
+    @PostMapping("/dish/new")
+    public String postNewDish(Model model, @ModelAttribute Dish dish) {
+        dishService.save(dish);
+        return "redirect:/dishes";
+    }
+
+    @PostMapping("/dish/{id}/delete")
+    public String deleteDish(@PathVariable(value = "id") int id, Model model) {
+        if (dishService.ifExist(id)) {
+            dishService.delete(id);
+        }
+        return "redirect:/dishes";
+    }
+    
 }
