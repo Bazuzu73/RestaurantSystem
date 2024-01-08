@@ -11,7 +11,7 @@ import com.store.store.models.IngredientType;
 import com.store.store.repos.IngredientRepository;
 
 @Service
-public class IngredientService implements ServiceInterface<Ingredient>, IngredientTypeInterface<IngredientType>{
+public class IngredientService implements ServiceInterface<Ingredient>, IngredientTypeInterface<IngredientType> {
 
     @Autowired
     private IngredientRepository ingredientRepository;
@@ -47,7 +47,7 @@ public class IngredientService implements ServiceInterface<Ingredient>, Ingredie
     }
 
     @Override
-    public Ingredient getEmpty(){
+    public Ingredient getEmpty() {
         Ingredient ingredient = new Ingredient();
         return ingredient;
     }

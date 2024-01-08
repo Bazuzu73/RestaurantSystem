@@ -12,7 +12,6 @@ import com.store.store.services.IngredientService;
 
 import org.springframework.web.bind.annotation.PostMapping;
 
-
 @Controller
 public class IngredientController {
 
