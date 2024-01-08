@@ -41,7 +41,7 @@ public class IngredientController {
         if (!ingredientService.ifExist(id)) {
             return "redirect:ingredients";
         } else {
-            Ingredient ingredient = ingredientService.getById(id).get(0);
+            Ingredient ingredient = ingredientService.geIngredientObject(id);
             model.addAttribute("ingredient", ingredient);
             model.addAttribute("type", ingredientService.getIngredientTypes());
             return "ingredientUpdated";
@@ -58,11 +58,12 @@ public class IngredientController {
     public String saveIngredient(Model model) {
         model.addAttribute("ingredient", ingredientService.getEmpty());
         model.addAttribute("type", ingredientService.getIngredientTypes());
-        return "ingredientDetailed";
+        return "ingredientUpdated";
     }
 
     @PostMapping("/ingredient/new")
     public String newIngredient(Model model, @ModelAttribute Ingredient ingredient) {
+        System.out.println(ingredient.getId());
         ingredientService.save(ingredient);
         return "redirect:/ingredients";
     }

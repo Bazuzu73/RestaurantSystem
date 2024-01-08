@@ -51,4 +51,9 @@ public class IngredientService implements ServiceInterface<Ingredient>, Ingredie
         Ingredient ingredient = new Ingredient();
         return ingredient;
     }
+
+    public Ingredient geIngredientObject(int id) {
+        Ingredient ingredient = ingredientRepository.findById(id).get();
+        return ingredient;
+    }
 }
