@@ -16,11 +16,10 @@
 <main>
     <div class="col-md-7 col-lg-8">
         <h4 class="mb-3">Add ingredient</h4>
-        <form th:object="${empty_ingredient}" method="post">
-          <div th:each="el : ${ingredient}">
+        <form th:object="${ingredient}" method="post">
             <div class="col-md-3">
               <label for="name" class="form-label">Ingredient's name</label>
-              <input type="text" class="form-control" th:value="${el.name}" th:field="*{name}">
+              <input type="text" class="form-control" th:field="*{name}">
             </div>
             <div class="col-md-3">
               <label for="Type" class="form-label">Ingredient Type</label>
@@ -31,7 +30,6 @@
             </div>
             <br>
           <button class="btn btn-primary btn-sm" type="submit">Add new ingredient</button>
-          </div>
         </form>
       </div>
 </main>

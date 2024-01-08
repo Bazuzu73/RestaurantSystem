@@ -11,6 +11,8 @@ import com.store.store.models.Ingredient;
 import com.store.store.services.IngredientService;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class IngredientController {
@@ -39,10 +41,17 @@ public class IngredientController {
         if (!ingredientService.ifExist(id)) {
             return "redirect:ingredients";
         } else {
-            model.addAttribute("empty_ingredient", ingredientService.getEmpty());
-            model.addAttribute("ingredient", ingredientService.getById(id));
+            Ingredient ingredient = ingredientService.getById(id).get(0);
+            model.addAttribute("ingredient", ingredient);
+            model.addAttribute("type", ingredientService.getIngredientTypes());
             return "ingredientUpdated";
         }
+    }
+
+    @PostMapping("/ingredient/{id}/update")
+    public String postIngredientforUpdate(Model model, @ModelAttribute Ingredient ingredient) {
+        ingredientService.save(ingredient);
+        return "redirect:/ingredients";
     }
 
     @GetMapping("/ingredient/new")
