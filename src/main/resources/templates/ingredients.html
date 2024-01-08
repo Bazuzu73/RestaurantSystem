@@ -18,8 +18,10 @@
         <div th:each="element : ${ingredients}" class="alert alert-info mt-2">
             <h3 th:text="${element.name}"></h3>
             <h3 th:text="${element.ingredientType}"></h3>
-            <a th:href="'/ingredient/' + ${element.id} + '/update'" class="btn btn-link">Update Ingredient</a>
-            <a th:href="'/ingredient/' + ${element.id} + '/delete'" class="btn btn-link">Delete Ingredient</a>
+            <a th:href="'/ingredient/' + ${element.id} + '/update'" class="btn btn-primary">Update Ingredient</a>
+            <form th:action="'/ingredient/' + ${element.id} + '/delete'" method="post">
+                <button class="btn btn-warning" type="submit">Delete Ingredient</button>
+            </form>
         </div>
     </div>
 </main>
