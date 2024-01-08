@@ -17,7 +17,7 @@
     <div class="container mt-5">
         <div th:each="dish : ${dishes}" class="alert alert-info mt-2">
             <h3 th:text="${dish.dishName}"></h3>
-            <a th:href="'/dish/' + ${dish.dishId}" class="btn btn-link">Dish details</a>
+            <a th:href="'/dish/' + ${dish.dishId} + '/update'" class="btn btn-link">Dish details</a>
         </div>
     </div>
 
