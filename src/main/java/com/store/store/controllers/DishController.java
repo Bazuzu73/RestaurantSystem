@@ -9,14 +9,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.ui.Model;
 import com.store.store.models.Dish;
-import com.store.store.models.Ingredient;
 import com.store.store.services.DishService;
 import com.store.store.services.IngredientService;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestBody;
-
-
 
 @Controller
 public class DishController {
@@ -55,6 +50,8 @@ public class DishController {
 
     @GetMapping("/dish/new")
     public String getNewDish(Model model) {
+        model.addAttribute("dish", dishService.getEmpty());
+        model.addAttribute("allIngredients", ingredientService.getAll());
         return "dishDetailed";
     }
     

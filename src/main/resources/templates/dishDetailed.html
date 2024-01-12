@@ -16,6 +16,7 @@
 <main>
     <div class="container mt-5">
         <form th:object="${dish}" method="post">
+            
             <input type="hidden" th:field="*{dishId}">
             <input type="text" class="form-control" th:field="*{dishName}">
             <div class="form-group">
