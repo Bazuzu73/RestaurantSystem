@@ -16,17 +16,15 @@
 <main>
     <div class="container mt-5">
         <form th:object="${dish}" method="post">
-            
             <input type="hidden" th:field="*{dishId}">
             <input type="text" class="form-control" th:field="*{dishName}">
             <div class="form-group">
                 <label>Ingredients:</label>
-                <div class="form-check" th:each="ingredient : ${allIngredients}">
-                    <input type="checkbox" class="form-check-input" th:id="${'ingredient-' + ingredient.id}"
-                           th:name="ingredients" th:value="${ingredient.id}"
-                           th:checked="${#lists.contains(ingredients, ingredient)}">
-                    <label class="form-check-label" th:for="${'ingredient-' + ingredient.id}"
-                           th:text="${ingredient.name}"></label>
+                <div class="col-md-3">
+                    <label for="Type" class="form-label">Ingredients</label>
+                    <select class="form-select" multiple="multiple" required="required" th:field="*{ingredients}">
+                        <option th:each="ingredient : ${allIngredients}" th:value="${ingredient.id}" th:text="${ingredient.name}"></option>
+                    </select>
                 </div>
             </div>
             <button class="btn btn-primary btn-sm" type="submit" th:text="Add"></button>

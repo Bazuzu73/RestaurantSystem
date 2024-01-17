@@ -14,11 +14,18 @@
 <body>
 <header th:insert="blocks/header :: header"></header>
 <main>
-    <p><a class="btn btn-primary btn-lg" href="/dish/new" role="button">New Dish</a></p>
+    <div class="container mt-5">
+        <p><a class="btn btn-primary btn-lg" href="/dish/new" role="button">New Dish</a></p>
+    </div>
     <div class="container mt-5">
         <div th:each="dish : ${dishes}" class="alert alert-info mt-2">
             <h3 th:text="${dish.dishName}"></h3>
             <a th:href="'/dish/' + ${dish.dishId} + '/update'" class="btn btn-link">Dish details</a>
+            <div>
+                <form th:action="'/dish/' + ${dish.dishId} + '/delete'" method="post">
+                    <button class="btn btn-warning" type="submit">Delete Dish</button>
+                </form>
+            </div>
         </div>
     </div>
 
