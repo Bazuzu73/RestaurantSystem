@@ -22,7 +22,7 @@ public class Dish {
     @Column(name = "Dish_Name")
     private String dishName;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "Dish_Ingredient", joinColumns = @JoinColumn(name = "Dish_Id"), inverseJoinColumns = @JoinColumn(name = "Ingredient_Id"))
     private List<Ingredient> ingredients;
 
