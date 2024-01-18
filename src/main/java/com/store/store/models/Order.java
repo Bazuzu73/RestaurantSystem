@@ -46,16 +46,17 @@ public class Order {
     @Column(name = "Credit_Card_CVV")
     private String ccCVV;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "Order_Dish", joinColumns =  @JoinColumn(name = "Order_Id"), inverseJoinColumns = @JoinColumn(name = "Dish_Id"))
+    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @JoinTable(name = "Order_Dish", joinColumns = @JoinColumn(name = "Order_Id"), inverseJoinColumns = @JoinColumn(name = "Dish_Id"))
     private List<Dish> dishes;
 
     public Order() {
     }
 
-    public Order(String deliveryName, String deliveryStreet, String deliveryCity,
-            DeliveryProvince deliveryProvince, String deliveryPostCode, String ccNumber,
-            String ccExpiration, String ccCVV) {
+    public Order(int id, String deliveryName, String deliveryStreet, String deliveryCity,
+            com.store.store.models.DeliveryProvince deliveryProvince, String deliveryPostCode, String ccNumber,
+            String ccExpiration, String ccCVV, List<Dish> dishes) {
+        this.id = id;
         this.deliveryName = deliveryName;
         this.deliveryStreet = deliveryStreet;
         this.deliveryCity = deliveryCity;
@@ -64,6 +65,7 @@ public class Order {
         this.ccNumber = ccNumber;
         this.ccExpiration = ccExpiration;
         this.ccCVV = ccCVV;
+        this.dishes = dishes;
     }
 
     public int getId() {
