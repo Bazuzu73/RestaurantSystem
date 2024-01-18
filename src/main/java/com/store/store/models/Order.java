@@ -22,20 +22,20 @@ public class Order {
     @Column(name = "Order_Id")
     private int id;
 
-    @Column(name = "Delivery_Name")
-    private String deliveryName;
+    @Column(name = "order_Name")
+    private String orderName;
 
-    @Column(name = "Delivery_Street")
-    private String deliveryStreet;
+    @Column(name = "order_Street")
+    private String orderStreet;
 
     @Column(name = "Delivary_City")
-    private String deliveryCity;
+    private String orderCity;
 
-    @Column(name = "Delivery_Province")
-    private DeliveryProvince DeliveryProvince;
+    @Column(name = "order_Province")
+    private OrderProvince orderProvince;
 
-    @Column(name = "Delivery_PostalCode")
-    private String deliveryPostCode;
+    @Column(name = "order_PostalCode")
+    private String orderPostCode;
 
     @Column(name = "Credit_Card_Number")
     private String ccNumber;
@@ -53,15 +53,15 @@ public class Order {
     public Order() {
     }
 
-    public Order(int id, String deliveryName, String deliveryStreet, String deliveryCity,
-            com.store.store.models.DeliveryProvince deliveryProvince, String deliveryPostCode, String ccNumber,
+    public Order(int id, String orderName, String orderStreet, String orderCity,
+            com.store.store.models.OrderProvince orderProvince, String orderPostCode, String ccNumber,
             String ccExpiration, String ccCVV, List<Dish> dishes) {
         this.id = id;
-        this.deliveryName = deliveryName;
-        this.deliveryStreet = deliveryStreet;
-        this.deliveryCity = deliveryCity;
-        DeliveryProvince = deliveryProvince;
-        this.deliveryPostCode = deliveryPostCode;
+        this.orderName = orderName;
+        this.orderStreet = orderStreet;
+        this.orderCity = orderCity;
+        this.orderProvince = orderProvince;
+        this.orderPostCode = orderPostCode;
         this.ccNumber = ccNumber;
         this.ccExpiration = ccExpiration;
         this.ccCVV = ccCVV;
@@ -72,44 +72,44 @@ public class Order {
         return id;
     }
 
-    public String getDeliveryName() {
-        return deliveryName;
+    public String getorderName() {
+        return orderName;
     }
 
-    public void setDeliveryName(String deliveryName) {
-        this.deliveryName = deliveryName;
+    public void setorderName(String orderName) {
+        this.orderName = orderName;
     }
 
-    public String getDeliveryStreet() {
-        return deliveryStreet;
+    public String getorderStreet() {
+        return orderStreet;
     }
 
-    public void setDeliveryStreet(String deliveryStreet) {
-        this.deliveryStreet = deliveryStreet;
+    public void setorderStreet(String orderStreet) {
+        this.orderStreet = orderStreet;
     }
 
-    public String getDeliveryCity() {
-        return deliveryCity;
+    public String getorderCity() {
+        return orderCity;
     }
 
-    public void setDeliveryCity(String deliveryCity) {
-        this.deliveryCity = deliveryCity;
+    public void setorderCity(String orderCity) {
+        this.orderCity = orderCity;
     }
 
-    public DeliveryProvince getDeliveryProvince() {
-        return DeliveryProvince;
+    public OrderProvince getorderProvince() {
+        return orderProvince;
     }
 
-    public void setDeliveryProvince(DeliveryProvince deliveryProvince) {
-        DeliveryProvince = deliveryProvince;
+    public void setorderProvince(OrderProvince orderProvince) {
+        this.orderProvince = orderProvince;
     }
 
-    public String getDeliveryPostCode() {
-        return deliveryPostCode;
+    public String getorderPostCode() {
+        return orderPostCode;
     }
 
-    public void setDeliveryPostCode(String deliveryPostCode) {
-        this.deliveryPostCode = deliveryPostCode;
+    public void setorderPostCode(String orderPostCode) {
+        this.orderPostCode = orderPostCode;
     }
 
     public String getCcNumber() {

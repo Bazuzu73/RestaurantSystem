@@ -27,7 +27,7 @@ public class OrderController {
     @GetMapping("/order/new")
     public String getNewOrder(Model model) {
         model.addAttribute("order", orderService.getEmpty());
-        model.addAttribute("province", orderService.getDeliveryProvinces());
+        model.addAttribute("province", orderService.getOrderProvinces());
         return "order";
     }
 
@@ -40,7 +40,7 @@ public class OrderController {
     @GetMapping("/order/{id}/update")
     public String getUpdateOrder(@PathVariable(value = "id") int id, Model model) {
         model.addAttribute("order", orderService.getById(id));
-        model.addAttribute("province", orderService.getDeliveryProvinces());
+        model.addAttribute("province", orderService.getOrderProvinces());
         return "order";
     }
 

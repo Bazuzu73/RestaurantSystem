@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.store.store.models.DeliveryProvince;
+import com.store.store.models.OrderProvince;
 import com.store.store.models.Dish;
 import com.store.store.models.Order;
 import com.store.store.repos.OrderRepository;
@@ -52,7 +52,7 @@ public class OrderService implements ServiceInterface<Order>, RelatedInterface<D
         return new Order();
     }
 
-    public DeliveryProvince[] getDeliveryProvinces() {
-        return DeliveryProvince.values();
+    public OrderProvince[] getOrderProvinces() {
+        return OrderProvince.values();
     }
 }
