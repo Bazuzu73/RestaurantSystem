@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.store.store.models.Order;
+import com.store.store.services.DishService;
 import com.store.store.services.OrderService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
@@ -17,6 +18,9 @@ public class OrderController {
 
     @Autowired
     OrderService orderService;
+
+    @Autowired
+    DishService dishService;
 
     @GetMapping("/order/list")
     public String getListOfOrders(Model model) {
@@ -28,6 +32,7 @@ public class OrderController {
     public String getNewOrder(Model model) {
         model.addAttribute("order", orderService.getEmpty());
         model.addAttribute("province", orderService.getOrderProvinces());
+        model.addAttribute("dishes", dishService.getAll());
         return "order";
     }
 
