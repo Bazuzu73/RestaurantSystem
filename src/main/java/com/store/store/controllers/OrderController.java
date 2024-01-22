@@ -11,10 +11,11 @@ import com.store.store.models.Order;
 import com.store.store.services.DishService;
 import com.store.store.services.OrderService;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class OrderController {
+@RequestMapping("/order")
+public class OrderController implements GenericCRUDController<Order>{
 
     @Autowired
     OrderService orderService;
@@ -22,44 +23,49 @@ public class OrderController {
     @Autowired
     DishService dishService;
 
-    @GetMapping("/order/list")
-    public String getListOfOrders(Model model) {
+    @GetMapping("/list")
+    @Override
+    public String getAll(Model model) {
         model.addAttribute("orders", orderService.getAll());
         return "orders";
     }
 
-    @GetMapping("/order/new")
-    public String getNewOrder(Model model) {
+    @GetMapping("/new")
+    @Override
+    public String getNew(Model model) {
         model.addAttribute("order", orderService.getEmpty());
         model.addAttribute("province", orderService.getOrderProvinces());
         model.addAttribute("dishList", dishService.getAll());
         return "order";
     }
 
-    @PostMapping("/order/new")
-    public String postNewOrder(Model model, @ModelAttribute Order order) {
+    @PostMapping("/new")
+    @Override
+    public String postNew(@ModelAttribute Order order) {
         orderService.save(order);
-        return "redirect:/order/list";
+        return "redirect:order/list";
     }
 
-    @GetMapping("/order/{id}/update")
-    public String getUpdateOrder(@PathVariable(value = "id") int id, Model model) {
+    @GetMapping("/{id}/update")
+    @Override
+    public String getUpdate(Model model, @PathVariable(value = "id") int id) {
         model.addAttribute("order", orderService.getById(id).get(0));
         model.addAttribute("dishList", dishService.getAll());
         model.addAttribute("province", orderService.getOrderProvinces());
         return "order";
     }
 
-    @PostMapping("/order/{id}/update")
-    public String postUpdateOrder(Model model, @ModelAttribute Order order) {
+    @PostMapping("/{id}/update")
+    @Override
+    public String postUpdate(@ModelAttribute Order order) {
         orderService.save(order);
-        return "redirect:/order/list";
+        return "redirect:order/list";
     }
 
-    @PostMapping("/order/{id}/delete")
-    public String postDeleteOrder(@PathVariable(value = "id") int id, Model model) {
+    @PostMapping("/{id}/delete")
+    @Override
+    public String postDelete(@PathVariable(value = "id") int id) {
         orderService.delete(id);
-        return "redirect:/order/list";
+        return "redirect:order/list";
     }
-
 }
