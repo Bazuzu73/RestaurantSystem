@@ -32,7 +32,7 @@ public class OrderController {
     public String getNewOrder(Model model) {
         model.addAttribute("order", orderService.getEmpty());
         model.addAttribute("province", orderService.getOrderProvinces());
-        model.addAttribute("dishes", dishService.getAll());
+        model.addAttribute("dishList", dishService.getAll());
         return "order";
     }
 
@@ -44,13 +44,15 @@ public class OrderController {
 
     @GetMapping("/order/{id}/update")
     public String getUpdateOrder(@PathVariable(value = "id") int id, Model model) {
-        model.addAttribute("order", orderService.getById(id));
+        model.addAttribute("order", orderService.getById(id).get(0));
+        model.addAttribute("dishList", dishService.getAll());
         model.addAttribute("province", orderService.getOrderProvinces());
         return "order";
     }
 
     @PostMapping("/order/{id}/update")
-    public String postUpdateOrder(Model model, @RequestAttribute Order order) {
+    public String postUpdateOrder(Model model, @ModelAttribute Order order) {
+        orderService.save(order);
         return "redirect:/order/list";
     }
 

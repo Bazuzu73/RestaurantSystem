@@ -22,48 +22,27 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <input type="hidden" th:field="*{id}">
-                        <label for="orderName">Order name</label>
                         <input type="text" th:field="*{orderName}">
-                        <input type="text" th:field="*{ccCVV}">
-                        <input type="text" th:field="*{ccExpiration}">
-                        <input type="text" th:field="*{ccNumber}">
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="orderStreet">Street</label>
-                    <input type="text" th:field="*{orderStreet}">
-                </div>
-                <div class="mb-3">
-                    <label for="orderCity">City</label>
-                    <input type="text" th:field="*{orderCity}">
-                </div>
-
-                    <div class="col-md-4 mb-3">
-                        <label for="orderProvince">Province</label>
-                        <select class="custom-select d-block w-100" th:field="*{orderProvince}">
-                            <option value="">Select province</option>
-                            <option th:each="element : ${province}" th:value="${element}" th:text="${#strings.capitalize(element.name())}"></option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="postalCode">post code</label>
+                        <input type="text" th:field="*{orderName}">
+                        <input type="text" th:field="*{orderStreet}">
+                        <input type="text" th:field="*{orderCity}">
+                        <input type="text" th:field="*{orderProvince}">
                         <input type="text" th:field="*{orderPostCode}">
-                    </div>
-                </div>
+                        <input type="text" th:field="*{ccNumber}">
+                        <input type="text" th:field="*{ccExpiration}">
+                        <div class="form-group">
+                            <label>Ingredients:</label>
+                            <div class="col-md-3">
+                                <label for="Type" class="form-label">Ingredients</label>
+                                <select class="form-select" multiple="multiple" required="required" th:field="*{dishes}">
+                                    <option th:each="el : ${dishList}" th:value="${el.dishId}" th:text="${el.dishId}"></option>
+                                </select>
+                            </div>
+                        </div>
 
 
-                <div class="form-group">
-                    <label>Dishes:</label>
-                    <div class="col-md-3">
-                        <label for="Type" class="form-label">Dishes</label>
-                        <select class="form-select" multiple="multiple" required="required" th:field="*{dishes}">
-                            <option th:each="el : ${dishes}" th:value="${el.dishId}" th:text="${el.dishName}"></option>
-                        </select>
+
                     </div>
-                </div>
-                <div class="row">
-                <hr class="mb-4">
                 <button class="btn btn-primary btn-lg btn-block" type="submit">Make order</button>
             </form>
         </div>

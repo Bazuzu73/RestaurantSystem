@@ -42,7 +42,7 @@ public class DishByIdConverter implements Converter<String, Dish>{
 
     @Override
     public Dish convert(String id) {
-        return dishService.getById(Integer.parseInt(id)).get(0);
+        return dishService.getObject(Integer.parseInt(id));
     }
     
 }

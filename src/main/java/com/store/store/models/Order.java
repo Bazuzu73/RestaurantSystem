@@ -28,7 +28,7 @@ public class Order {
     @Column(name = "order_Street")
     private String orderStreet;
 
-    @Column(name = "Delivary_City")
+    @Column(name = "order_City")
     private String orderCity;
 
     @Column(name = "order_Province")
@@ -53,9 +53,8 @@ public class Order {
     public Order() {
     }
 
-    public Order(int id, String orderName, String orderStreet, String orderCity,
-            com.store.store.models.OrderProvince orderProvince, String orderPostCode, String ccNumber,
-            String ccExpiration, String ccCVV, List<Dish> dishes) {
+    public Order(int id, String orderName, String orderStreet, String orderCity, OrderProvince orderProvince,
+            String orderPostCode, String ccNumber, String ccExpiration, String ccCVV, List<Dish> dishes) {
         this.id = id;
         this.orderName = orderName;
         this.orderStreet = orderStreet;
@@ -72,43 +71,47 @@ public class Order {
         return id;
     }
 
-    public String getorderName() {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getOrderName() {
         return orderName;
     }
 
-    public void setorderName(String orderName) {
+    public void setOrderName(String orderName) {
         this.orderName = orderName;
     }
 
-    public String getorderStreet() {
+    public String getOrderStreet() {
         return orderStreet;
     }
 
-    public void setorderStreet(String orderStreet) {
+    public void setOrderStreet(String orderStreet) {
         this.orderStreet = orderStreet;
     }
 
-    public String getorderCity() {
+    public String getOrderCity() {
         return orderCity;
     }
 
-    public void setorderCity(String orderCity) {
+    public void setOrderCity(String orderCity) {
         this.orderCity = orderCity;
     }
 
-    public OrderProvince getorderProvince() {
+    public OrderProvince getOrderProvince() {
         return orderProvince;
     }
 
-    public void setorderProvince(OrderProvince orderProvince) {
+    public void setOrderProvince(OrderProvince orderProvince) {
         this.orderProvince = orderProvince;
     }
 
-    public String getorderPostCode() {
+    public String getOrderPostCode() {
         return orderPostCode;
     }
 
-    public void setorderPostCode(String orderPostCode) {
+    public void setOrderPostCode(String orderPostCode) {
         this.orderPostCode = orderPostCode;
     }
 
@@ -142,6 +145,13 @@ public class Order {
 
     public void setDishes(List<Dish> dishes) {
         this.dishes = dishes;
+    }
+
+    @Override
+    public String toString() {
+        return "Order [id=" + id + ", orderName=" + orderName + ", orderStreet=" + orderStreet + ", orderCity="
+                + orderCity + ", orderProvince=" + orderProvince + ", orderPostCode=" + orderPostCode + ", ccNumber="
+                + ccNumber + ", ccExpiration=" + ccExpiration + ", ccCVV=" + ccCVV + ", dishes=" + dishes + "]";
     }
 
 }
