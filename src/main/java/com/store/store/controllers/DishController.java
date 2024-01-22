@@ -1,38 +1,76 @@
 package com.store.store.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.ui.Model;
 import com.store.store.models.Dish;
-import com.store.store.models.Ingredient;
 import com.store.store.services.DishService;
+import com.store.store.services.IngredientService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class DishController {
+@RequestMapping("/dish")
+public class DishController implements GenericCRUDController<Dish>{
 
     @Autowired
     private DishService dishService;
 
-    @GetMapping("/dishes")
-    public String getListofDishes(Model model) {
+    @Autowired
+    private IngredientService ingredientService;
+
+    @GetMapping("/list")
+    @Override
+    public String getAll(Model model) {
         Iterable<Dish> dishes = dishService.getAll();
         model.addAttribute("dishes", dishes);
         return "dishes";
     }
 
-    @GetMapping("/dish/{id}")
-    public String getDish(@PathVariable(value = "id") int id, Model model) {
+    @GetMapping("/{id}/update")
+    @Override
+    public String getUpdate(Model model, @PathVariable(value = "id") int id) {
         if (!dishService.ifExist(id)) {
-            return "redirect:/dishes";
+            return "redirect:/dish/list";
+        } else {
+            model.addAttribute("dish", dishService.getById(id).get(0));
+            model.addAttribute("ingredients", dishService.getRelated(id));
+            model.addAttribute("allIngredients", ingredientService.getAll());
+            return "dish";
         }
-        List<Dish> dish = dishService.getById(id);
-        List<Ingredient> ingredients = dishService.getRelated(id);
-        model.addAttribute("dish", dish);
-        model.addAttribute("ingredients", ingredients);
-        return "dishDetailed";
+    }
+
+    @PostMapping("/{id}/update")
+    @Override
+    public String postUpdate(@ModelAttribute Dish dish) {
+        dishService.save(dish);
+        return "redirect:/dish/list";
+    }
+
+    @GetMapping("/new")
+    @Override
+    public String getNew(Model model) {
+        model.addAttribute("dish", dishService.getEmpty());
+        model.addAttribute("allIngredients", ingredientService.getAll());
+        return "dish";
+    }
+
+    @PostMapping("/new")
+    @Override
+    public String postNew(@ModelAttribute Dish dish) {
+        dishService.save(dish);
+        return "redirect:/dish/list";
+    }
+
+    @PostMapping("/{id}/delete")
+    @Override
+    public String postDelete(@PathVariable(value = "id") int id) {
+        if (dishService.ifExist(id)) {
+            dishService.delete(id);
+        }
+        return "redirect:/dish/list";
     }
 }

@@ -11,55 +11,63 @@ import com.store.store.models.Ingredient;
 import com.store.store.services.IngredientService;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class IngredientController {
+@RequestMapping("/ingredient")
+public class IngredientController implements GenericCRUDController<Ingredient>{
 
     @Autowired
     private IngredientService ingredientService;
 
-    @GetMapping("/ingredients")
-    public String getIngredientList(Model model) {
+    @GetMapping("/list")
+    @Override
+    public String getAll(Model model) {
         model.addAttribute("ingredients", ingredientService.getAll());
         return "ingredients";
     }
 
-    @GetMapping("/ingredient/{id}/update")
-    public String getIngredientForUpdate(@PathVariable(value = "id") int id, Model model) {
+    @GetMapping("/{id}/update")
+    @Override
+    public String getUpdate(Model model, @PathVariable(value = "id") int id) {
         if (!ingredientService.ifExist(id)) {
             return "redirect:ingredients";
         } else {
             model.addAttribute("ingredient", ingredientService.geIngredientObject(id));
             model.addAttribute("type", ingredientService.getIngredientTypes());
-            return "ingredientUpdated";
+            return "ingredient";
         }
     }
 
-    @PostMapping("/ingredient/{id}/update")
-    public String postIngredientforUpdate(Model model, @ModelAttribute Ingredient ingredient) {
+    @PostMapping("/{id}/update")
+    @Override
+    public String postUpdate(@ModelAttribute Ingredient ingredient) {
         ingredientService.save(ingredient);
-        return "redirect:/ingredients";
+        return "redirect:/ingredient/list";
     }
 
-    @GetMapping("/ingredient/new")
-    public String saveIngredient(Model model) {
+    @GetMapping("/new")
+    @Override
+    public String getNew(Model model) {
         model.addAttribute("ingredient", ingredientService.getEmpty());
         model.addAttribute("type", ingredientService.getIngredientTypes());
-        return "ingredientUpdated";
+        return "ingredient";
     }
 
-    @PostMapping("/ingredient/new")
-    public String newIngredient(Model model, @ModelAttribute Ingredient ingredient) {
+    @PostMapping("/new")
+    @Override
+    public String postNew(@ModelAttribute Ingredient ingredient) {
         System.out.println(ingredient.getId());
         ingredientService.save(ingredient);
-        return "redirect:/ingredients";
+        return "redirect:/ingredient/list";
     }
 
-    @PostMapping("/ingredient/{id}/delete")
-    public String deleteIngredient(@PathVariable(value = "id") int id, Model model) {
+    @PostMapping("/{id}/delete")
+    @Override
+    public String postDelete(@PathVariable(value = "id") int id) {
         if (ingredientService.ifExist(id)) {
             ingredientService.delete(id);
         }
-        return "redirect:/ingredients";
+        return "redirect:/ingredient/list";
     }
 }

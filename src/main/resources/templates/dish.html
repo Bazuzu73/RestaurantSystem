@@ -15,14 +15,20 @@
 <header th:insert="blocks/header :: header"></header>
 <main>
     <div class="container mt-5">
-        <div th:each="element : ${dish}">
-            <h1 th:text="${element.dishName}"></h1>
-        </div>
-        <div th:each="ingredient : ${ingredients}" class="alert alert-info mt-2">
-            <h3 th:text="${ingredient.id}"></h3>
-            <h3 th:text="${ingredient.name}"></h3>
-            <h3 th:text="${ingredient.ingredientType}"></h3>
-        </div>
+        <form th:object="${dish}" method="post">
+            <input type="hidden" th:field="*{dishId}">
+            <input type="text" class="form-control" th:field="*{dishName}">
+            <div class="form-group">
+                <label>Ingredients:</label>
+                <div class="col-md-3">
+                    <label for="Type" class="form-label">Ingredients</label>
+                    <select class="form-select" multiple="multiple" required="required" th:field="*{ingredients}">
+                        <option th:each="ingredient : ${allIngredients}" th:value="${ingredient.id}" th:text="${ingredient.name}"></option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-sm" type="submit" th:text="Add"></button>
+        </form>
     </div>
 </main>
 </body>

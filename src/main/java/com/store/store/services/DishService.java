@@ -53,4 +53,8 @@ public class DishService implements ServiceInterface<Dish>, RelatedInterface<Ing
         Dish dish = new Dish();
         return dish;
     }
+
+    public Dish getObject(int id) {
+        return dishRepository.findById(id).get();
+    }
 }
