@@ -15,6 +15,9 @@
 <header th:insert="blocks/header :: header"></header>
 <main>
     <div class="container mt-5">
+        <p><a class="btn btn-primary btn-lg" href="/ingredient/new" role="button">New Ingredient</a></p>
+    </div>
+    <div class="container mt-5">
         <div th:each="element : ${ingredients}" class="alert alert-info mt-2">
             <h3 th:text="${element.name}"></h3>
             <h3 th:text="${element.ingredientType}"></h3>

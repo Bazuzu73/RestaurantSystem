@@ -26,14 +26,16 @@
                         <input type="text" th:field="*{orderName}">
                         <input type="text" th:field="*{orderStreet}">
                         <input type="text" th:field="*{orderCity}">
-                        <input type="text" th:field="*{orderProvince}">
+                        <select class="form-select" required="" th:field="*{orderProvince}">
+                            <option value="">Select province</option>
+                            <option th:each="element : ${province}" th:value="${element}" th:text="${#strings.capitalize(element.name())}"></option>
+                          </select>
                         <input type="text" th:field="*{orderPostCode}">
                         <input type="text" th:field="*{ccNumber}">
                         <input type="text" th:field="*{ccExpiration}">
                         <div class="form-group">
-                            <label>Ingredients:</label>
                             <div class="col-md-3">
-                                <label for="Type" class="form-label">Ingredients</label>
+                                <label for="Type" class="form-label">Dishes</label>
                                 <select class="form-select" multiple="multiple" required="required" th:field="*{dishes}">
                                     <option th:each="el : ${dishList}" th:value="${el.dishId}" th:text="${el.dishId}"></option>
                                 </select>

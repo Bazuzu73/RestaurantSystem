@@ -10,8 +10,10 @@ import com.store.store.models.Dish;
 import com.store.store.services.DishService;
 import com.store.store.services.IngredientService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/dish")
 public class DishController implements GenericCRUDController<Dish>{
 
     @Autowired
@@ -20,7 +22,7 @@ public class DishController implements GenericCRUDController<Dish>{
     @Autowired
     private IngredientService ingredientService;
 
-    @GetMapping("/dish/list")
+    @GetMapping("/list")
     @Override
     public String getAll(Model model) {
         Iterable<Dish> dishes = dishService.getAll();
@@ -28,7 +30,7 @@ public class DishController implements GenericCRUDController<Dish>{
         return "dishes";
     }
 
-    @GetMapping("/dish/{id}/update")
+    @GetMapping("/{id}/update")
     @Override
     public String getUpdate(Model model, @PathVariable(value = "id") int id) {
         if (!dishService.ifExist(id)) {
@@ -41,14 +43,14 @@ public class DishController implements GenericCRUDController<Dish>{
         }
     }
 
-    @PostMapping("/dish/{id}/update")
+    @PostMapping("/{id}/update")
     @Override
     public String postUpdate(@ModelAttribute Dish dish) {
         dishService.save(dish);
         return "redirect:/dish/list";
     }
 
-    @GetMapping("/dish/new")
+    @GetMapping("/new")
     @Override
     public String getNew(Model model) {
         model.addAttribute("dish", dishService.getEmpty());
@@ -56,14 +58,14 @@ public class DishController implements GenericCRUDController<Dish>{
         return "dish";
     }
 
-    @PostMapping("/dish/new")
+    @PostMapping("/new")
     @Override
     public String postNew(@ModelAttribute Dish dish) {
         dishService.save(dish);
         return "redirect:/dish/list";
     }
 
-    @PostMapping("/dish/{id}/delete")
+    @PostMapping("/{id}/delete")
     @Override
     public String postDelete(@PathVariable(value = "id") int id) {
         if (dishService.ifExist(id)) {

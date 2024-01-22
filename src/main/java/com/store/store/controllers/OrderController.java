@@ -43,7 +43,7 @@ public class OrderController implements GenericCRUDController<Order>{
     @Override
     public String postNew(@ModelAttribute Order order) {
         orderService.save(order);
-        return "redirect:order/list";
+        return "redirect:/order/list";
     }
 
     @GetMapping("/{id}/update")
@@ -59,13 +59,13 @@ public class OrderController implements GenericCRUDController<Order>{
     @Override
     public String postUpdate(@ModelAttribute Order order) {
         orderService.save(order);
-        return "redirect:order/list";
+        return "redirect:/order/list";
     }
 
     @PostMapping("/{id}/delete")
     @Override
     public String postDelete(@PathVariable(value = "id") int id) {
         orderService.delete(id);
-        return "redirect:order/list";
+        return "redirect:/order/list";
     }
 }
